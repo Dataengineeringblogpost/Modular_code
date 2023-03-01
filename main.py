@@ -2,6 +2,8 @@ from my_modular_code.logger import logging
 from my_modular_code.exception import InsuranceException
 import os , sys
 from my_modular_code.utils import get_colllection_as_dataframe
+from my_modular_code.entity.config_entity import DataIngestionConfig
+from my_modular_code.entity import config_entity
 """
 
 This is a basic main file with basic exception handling 
@@ -27,7 +29,11 @@ if __name__=="__main__":
         DATABASE_NAME="INSURANNCE"
         COLLECTION_NAME="INSURANCE_PROJECT"
         # test_logger_and_expetion()
-        get_colllection_as_dataframe(database_name=DATABASE_NAME,collection_name=COLLECTION_NAME)
+        training_pipeline_config=config_entity.TrainingPipelineConfig()
+        data_ingestion_config = config_entity.DataIngestionConfig(training_pipeline_config)
+        print(data_ingestion_config.to_dict())
+
+        #get_colllection_as_dataframe(database_name=DATABASE_NAME,collection_name=COLLECTION_NAME)
     except Exception as e:
-        
+        raise InsuranceException(e,sys)
         print("Error occoured")
