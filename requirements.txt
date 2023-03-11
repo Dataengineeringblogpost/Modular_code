@@ -38,7 +38,6 @@ matplotlib==3.6.3
 matplotlib-inline==0.1.6
 missingno==0.5.1
 murmurhash==1.0.9
--e git+https://github.com/karthik2123/Modular_code.git@2b23d5d49a8fe17721a329e286cb1cba18d80b8d#egg=my_modular_code
 nest-asyncio==1.5.6
 numpy==1.24.1
 packaging==23.0
@@ -86,4 +85,4 @@ urllib3==1.26.14
 virtualenv==20.16.5
 wasabi==1.1.1
 wcwidth==0.2.6
-- e.
+-e .

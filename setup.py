@@ -16,8 +16,8 @@ def function(parameter : datatype)-> output_Datatype:
 """
 
 #Create variable
-requriment_file_name = "requirements.txt"
-REMOVE_PACKAGE = "-e ."
+# requriment_file_name = "requirements.txt"
+# REMOVE_PACKAGE = "-e ."
 
 
 
@@ -39,7 +39,7 @@ setup(
     #Name of the Project
     name='my_modular_code',
     #we have change the version with every release
-    version='0.0.1',
+    version='0.0.2',
     
     description='Insurance Industry Level Project',
     long_description=open('README.md').read(),

@@ -15,7 +15,7 @@ def get_colllection_as_dataframe(database_name:str,collection_name:str):
 
         logging.info(f"Read data from the database{database_name} and collection {collection_name}")
         #Reading Table to DataFrame
-        
+        #Mongo client is kept in config ----> stored in env
         df=pd.DataFrame(mongo_client[database_name][collection_name].find())
         logging.info(f"find coloumns {df.columns}")
 
@@ -27,8 +27,10 @@ def get_colllection_as_dataframe(database_name:str,collection_name:str):
         #Rows and Columns
         df_shape = df.shape
         logging.info(f"Rows:- {df_shape[0]} and Columns:- {df_shape[1]}")
+        
         return df
     
     except Exception as e:
+       
 
         raise InsuranceException(e,sys)

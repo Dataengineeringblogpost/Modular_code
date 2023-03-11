@@ -1,0 +1,19 @@
+we have first raise the error from the file:-raise InsuranceException(e,sys)
+logger.debug catches the exception and puts it in the file:-logging.debug(str(e))
+how to work with logger
+Step 1---->raise the exception at the function wala file
+eg:-utils--->
+def fun():
+    try:
+     code
+    except Exception as e:
+        raise InsuranceException(e,sys)
+Step 2 ------>catch the exception at the main file and log it into the logger file
+except Exception as e:
+        
+        logging.debug(str(e))
+
+
+
+to print any info 
+logging.info("text")

@@ -25,6 +25,7 @@ class DataIngestionConfig:
             self.feature_store_file_name = os.path.join(self.data_ingestion_dir,"feature_store",File_name)
             self.train_file_path=os.path.join(self.data_ingestion_dir,"dataset",Train_File_Name)
             self.test_file_path=os.path.join(self.data_ingestion_dir,"dataset",Test_File_Name)
+            self.test_size=0.2
         
         except Exception as e:
             raise InsuranceException(e,sys)

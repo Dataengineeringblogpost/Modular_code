@@ -1,7 +1,9 @@
 import os
 import sys
 """
-This is where we create the call for basic exception handling"""
+This is where we create the call for basic exception handling
+
+"""
 
 class InsuranceException(Exception):
 
@@ -15,7 +17,7 @@ class InsuranceException(Exception):
         error_message=error
         error_detail:error details via exception
         """
-        self.error_message = InsuranceException.error_message_detail(error_message, error_detail=error_detail)
+        self.error_message = (InsuranceException.error_message_detail(error_message, error_detail=error_detail))
         
        
 
@@ -24,6 +26,7 @@ class InsuranceException(Exception):
         """
         error: Exception object raise from module
         error_detail: is sys module contains detail information about system execution information.
+        here we are basically create a error message that will be stored in the log file if an error occours
         """
 
 
@@ -43,5 +46,6 @@ class InsuranceException(Exception):
     def __str__(self):
         """
         Formating how a object should be visible if used in print statement.
+
         """
-        return self.error_message 
+        return f"hi error :- {self.error_message}"
