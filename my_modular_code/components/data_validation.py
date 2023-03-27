@@ -18,7 +18,15 @@ import numpy as np
 import yaml
 from  my_modular_code import utils
 
+
+#Creating a classs DataValidation
 class DataValidation:
+    """
+    Creating a constructor 
+    data_validation_config:-we have stored the name of the database and collection the project dir training testing normal dataset file path and also small stuff like test_size here.
+    data_validation_artifact:-Here we store the updated train test file path
+
+    """
     def __init__(self,data_validation_config:config_entity.DataValidationConfig,data_validation_artifact:artifact_entity.DataIngestionArtifact):
         try:
             logging.info("Data Validation started")
@@ -27,7 +35,13 @@ class DataValidation:
             self.validation_error=dict()
         except Exception as e:
             raise InsuranceException(e,sys)
+        
+    
 
+    """This function is used to drop the columns with missing values if it crosses the threshold
+    df :-normal dataframe ie the training and testing dataset
+    report_key_name:-The key at which we have to store our output of the drop_missing_column as in which columns are left and stuff
+    """
     def drop_missing_values_columns(self,df:pd.DataFrame,report_key_name):
         try:
             threshold=self.data_validation_config.missingthreshold
@@ -44,6 +58,13 @@ class DataValidation:
         
         except Exception as e:
             raise InsuranceException(e,sys)
+        
+    """
+    objective:-here we are checking wheather the dataset has all the columns as the base dataset
+    base_df:-main dataset
+    current_df:-Which is mostly the  train and test dataset
+    report_key_name:-Explained
+    """
     def is_required_column_exists(self,base_df:pd.DataFrame,current_df:pd.DataFrame,report_key_name:str):
         try:
             base_colums=base_df
@@ -61,6 +82,10 @@ class DataValidation:
 
         except Exception as e:
             raise InsuranceException(e,sys)
+        
+    """Here we are checking wheather two  columns follow the same distribution or not ie our base and train test dataset
+    we are checking this basically to check wheather it has the same data or not
+    """
     def data_drift(self,base_df:pd.DataFrame,current_df:pd.DataFrame,report_key_name):
         try:
             drift_report=dict()
@@ -82,7 +107,20 @@ class DataValidation:
             self.validation_error[report_key_name]=drift_report
         except Exception as e:
             raise InsuranceException(e,sys)
+    
+    """
+    Here we are going to call all the function made above one by one lets see the flow:-
+    first we reading the datasets
+    we replace the na values to np.nan values
+    we drop the missing columns having a spefic threshold
+    same we do for the train and test dataset
+    here we convert all the columns into float except the target columns(Function from utils)
+    then we check whaeather the daaset has the same columns or not
+    if all columns are same then we check wheather the distribution is same or not
+    then we write all the data in our yaml  file
+    
 
+    """
     def data_initiate_data_Validation(self):
         try:
             # print(self.data_validation_config.base_file_path)

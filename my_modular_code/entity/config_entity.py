@@ -11,6 +11,9 @@ from my_modular_code.logger import logging
 File_name="insureance.csv"
 Train_File_Name="train.csv"
 Test_File_Name="test.csv"
+TRANSFORMED_OBJECT_FILE_NAME="transformer.pkl"
+TARGET_ENCODER_OBJECT_FILE_NAME = "target_encoder.pkl"
+MODEL_FILE_NAME = "model.pkl"
 class TrainingPipelineConfig:
     def __init__(self) :
         try:
@@ -49,3 +52,32 @@ class DataValidationConfig:
         self.base_file_path=os.path.join("insurance.csv")
         
 
+class DataTransformationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        
+        #Creating a Folder name 'data_transformation'  in artifact folder
+        self.data_transformation_dir=os.path.join(training_pipeline_config.artifact_dir,"data_transformation")
+        #Storing the transformed file object in a directory 
+        
+        self.transform_object_path=os.path.join(self.data_transformation_dir,"transformer",TRANSFORMED_OBJECT_FILE_NAME)
+        #Storing the training transformed file object in a directory in tar file
+       
+        self.transform_object_train_path=os.path.join(self.data_transformation_dir,"transformed",Train_File_Name.replace("csv","npz"))
+        #Storing the testing transformed file object in a directory in tar file
+        self.transform_object_test_path=os.path.join(self.data_transformation_dir,"transformed",Test_File_Name.replace("csv","npz"))
+        self.target_encoder_path = os.path.join(self.data_transformation_dir,"target_encoder",TARGET_ENCODER_OBJECT_FILE_NAME)
+
+class ModelTrainingConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        #Creating a Folder name 'model_trainer'  in artifact folder
+        self.model_trainer_dir=os.path.join(training_pipeline_config.artifact_dir,"model_trainer")
+        #Creating a File inside the model dir to save the model Object
+        self.model_path=os.path.join(self.model_trainer_dir,"model",MODEL_FILE_NAME)
+        #Setting a threshold for the Model Accurcy
+        self.expected_accurcy  = 0.6
+        #Setting  threshold for overfitting
+        self.overfitting_threshold = 0.3
+
+class ModelEvaluationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        self.change_threshold = 0.01
